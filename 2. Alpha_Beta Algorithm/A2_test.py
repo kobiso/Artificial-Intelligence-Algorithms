@@ -1,11 +1,11 @@
 import sys, time, random, copy
-import gamestate_solution
-import gamestate_student
+import gamestate_comp
+import gamestate_player
 from collections import OrderedDict
 from settings import *
 
-from gamestate_solution import GameState as SolState
-from gamestate_student  import GameState as StuState
+from gamestate_comp import GameState as SolState
+from gamestate_player  import GameState as StuState
 
 # a random player
 class Player_Random:
@@ -18,7 +18,7 @@ def play_game(p1, p2, players, results, total_results):
     for i in range(100):print(" ", end='')
     print("\rPlaying Game: ", "{:>15s}".format(p1), " vs. ", "{:>15s}".format(p2), end='     ')
     # the solution gamestate that will keep track of the game
-    state = gamestate_solution.GameState(BOARD_ROWS, BOARD_COLS)
+    state = gamestate_comp.GameState(BOARD_ROWS, BOARD_COLS)
     # the player objects to be used in this game
     player_objs = [copy.deepcopy(players[p1][0]), copy.deepcopy(players[p2][0])]
     # the states that each player will use
@@ -58,12 +58,12 @@ def play_game(p1, p2, players, results, total_results):
 # define players that will play in a round-robin tournament and the states they will use
 players = {
     "Random"     : (Player_Random(), SolState(BOARD_ROWS, BOARD_COLS)),
-    "SOL-AB-D1"  : (gamestate_solution.Player_AlphaBeta(1, 0), SolState(BOARD_ROWS, BOARD_COLS)),
-    "SOL-AB-D2"  : (gamestate_solution.Player_AlphaBeta(2, 0), SolState(BOARD_ROWS, BOARD_COLS)),
-    "SOL-AB-D3"  : (gamestate_solution.Player_AlphaBeta(3, 0), SolState(BOARD_ROWS, BOARD_COLS)),
-    #"SOL-AB-T1"  : (gamestate_solution.Player_AlphaBeta(1, 1000), SolState(BOARD_ROWS, BOARD_COLS)),
-    "STU-AB-D1"  : (gamestate_student.Player_AlphaBeta(1, 0), StuState(BOARD_ROWS, BOARD_COLS)),
-    "STU-AB-D2"  : (gamestate_student.Player_AlphaBeta(2, 0), StuState(BOARD_ROWS, BOARD_COLS))
+    "SOL-AB-D1"  : (gamestate_comp.Player_AlphaBeta(1, 0), SolState(BOARD_ROWS, BOARD_COLS)),
+    "SOL-AB-D2"  : (gamestate_comp.Player_AlphaBeta(2, 0), SolState(BOARD_ROWS, BOARD_COLS)),
+    "SOL-AB-D3"  : (gamestate_comp.Player_AlphaBeta(3, 0), SolState(BOARD_ROWS, BOARD_COLS)),
+    #"SOL-AB-T1"  : (gamestate_comp.Player_AlphaBeta(1, 1000), SolState(BOARD_ROWS, BOARD_COLS)),
+    "STU-AB-D1"  : (gamestate_player.Player_AlphaBeta(1, 0), StuState(BOARD_ROWS, BOARD_COLS)),
+    "STU-AB-D2"  : (gamestate_player.Player_AlphaBeta(2, 0), StuState(BOARD_ROWS, BOARD_COLS))
 }
 
 # order the dictionary by player name

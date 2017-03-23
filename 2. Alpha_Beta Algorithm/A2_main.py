@@ -1,19 +1,19 @@
 import sys, time, random, copy
 import pygame as pg
-import gamestate_solution
-import gamestate_student
+import gamestate_comp
+import gamestate_player
 from settings import *
 
 # set the version of GameState we will use to display in the GUI
-from gamestate_student import GameState as DisplayState
+from gamestate_player import GameState as DisplayState
 
 # set which version of the GameState you will use for each Player in the game
-from gamestate_student import GameState as P1GameState
-from gamestate_student import GameState as P2GameState
+from gamestate_player import GameState as P1GameState
+from gamestate_player import GameState as P2GameState
 
 # set which Player object you will use for each Player in the game
 P1Player = None
-P2Player = gamestate_student.Player_AlphaBeta(0, 2000)
+P2Player = gamestate_player.Player_AlphaBeta(0, 2000)
 
 class Connect4:
     
