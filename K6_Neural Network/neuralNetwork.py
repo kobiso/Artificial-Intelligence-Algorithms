@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Jun 08 2016
 
-@author: jphong
-"""
 import classificationMethod
 import numpy as np
 import util
@@ -174,18 +170,18 @@ class NeuralNetworkClassifier(classificationMethod.ClassificationMethod):
     delta = netOut - trainingLabels # netOut (450,10), trainingLabels (450,10)
     LossW = np.dot(self.x2.T, delta) # x2 (450,100), delta (450,10)
     self.b[2] = self.b[2] - learningRate*np.sum(delta, axis=0)
+    reluD = 1 * (self.x2 > 0)
+    delta = np.dot(delta, self.W[2].T) * reluD
     self.W[2] = self.W[2] - learningRate*LossW
 
     """ Calculate Back propagation from hidden layer 2 to hidden layer 1"""
-    reluD = 1 * (self.x2 > 0)
-    delta = np.dot(delta, self.W[2].T) * reluD
     LossW = np.dot(self.x1.T, delta)
     self.b[1] = self.b[1] - learningRate * np.sum(delta, axis=0)
+    reluD = 1 * (self.x1 > 0)
+    delta = np.dot(delta, self.W[1].T) * reluD
     self.W[1] = self.W[1] - learningRate * LossW
 
     """ Calculate Back propagation from hidden layer 1 to input layer"""
-    reluD = 1 * (self.x1 > 0)
-    delta = np.dot(delta, self.W[1].T) * reluD
     LossW = np.dot(self.x0.T, delta)
     self.b[0] = self.b[0] - learningRate * np.sum(delta, axis=0)
     self.W[0] = self.W[0] - learningRate * LossW
